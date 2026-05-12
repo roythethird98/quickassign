@@ -1,0 +1,653 @@
+/* Quick Ticket Assignment - toolbar + config page styles
+ * Designed to mesh with GLPI 11's Tabler/Bootstrap 5 theme. */
+
+/* =========================================================================
+ * Floating toolbar (Assistance > Tickets)
+ * ========================================================================= */
+
+.quickassign-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    background: #ffffff;
+    border-top: 2px solid #206bc4;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #212529;
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar {
+    background: #1a2234;
+    border-top-color: #4dabf7;
+    color: #e9ecef;
+}
+
+.quickassign-toolbar .qa-inner {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.quickassign-toolbar .qa-info {
+    font-weight: 600;
+    padding: 6px 12px;
+    background: #206bc4;
+    color: #fff;
+    border-radius: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.quickassign-toolbar .qa-info .qa-count {
+    font-size: 16px;
+}
+
+.quickassign-toolbar .qa-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 200px;
+    flex: 1 1 200px;
+}
+
+.quickassign-toolbar .qa-field label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.04em;
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar .qa-field label {
+    color: #adb5bd;
+}
+
+.quickassign-toolbar .qa-select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background: #fff;
+    color: #212529;
+    height: 34px;
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar .qa-select {
+    background: #2b3648;
+    border-color: #3a4759;
+    color: #e9ecef;
+}
+
+/* Text / date / numeric: <input> + confirm button on one row.
+ * The input takes all available width; the button is fixed-width.
+ * min-width: 0 on the input is the standard fix for "flex item with
+ * default content basis won't shrink" — without it, long placeholders
+ * blow out the row. */
+.quickassign-toolbar .qa-input-row {
+    display: flex;
+    gap: 4px;
+    align-items: stretch;
+}
+
+.quickassign-toolbar .qa-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 34px;
+    padding: 6px 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background: #fff;
+    color: #212529;
+    font-size: 14px;
+}
+
+.quickassign-toolbar .qa-input:focus {
+    outline: none;
+    border-color: #206bc4;
+    box-shadow: 0 0 0 2px rgba(32, 107, 196, 0.15);
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar .qa-input {
+    background: #2b3648;
+    border-color: #3a4759;
+    color: #e9ecef;
+}
+[data-bs-theme="dark"] .quickassign-toolbar .qa-input:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.20);
+}
+
+.quickassign-toolbar .qa-confirm {
+    flex: 0 0 auto;
+    height: 34px;
+    padding: 0 12px;
+    border: 1px solid #206bc4;
+    border-radius: 4px;
+    background: #206bc4;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+}
+.quickassign-toolbar .qa-confirm:hover:not(:disabled) {
+    background: #1a5ba8;
+    border-color: #1a5ba8;
+}
+.quickassign-toolbar .qa-confirm:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar .qa-confirm {
+    background: #4dabf7;
+    border-color: #4dabf7;
+    color: #0e1320;
+}
+[data-bs-theme="dark"] .quickassign-toolbar .qa-confirm:hover:not(:disabled) {
+    background: #74c0fc;
+    border-color: #74c0fc;
+}
+
+/* Date input: leave a touch more room — datetime-local renders a
+ * browser-controlled spinner that wants width. */
+.quickassign-toolbar .qa-field-date { min-width: 240px; }
+.quickassign-toolbar .qa-field-numeric { min-width: 160px; }
+.quickassign-toolbar .qa-field-text { min-width: 240px; }
+.quickassign-toolbar .qa-field-ajax_ticket { min-width: 220px; }
+
+.quickassign-toolbar .qa-close {
+    background: transparent;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: #6c757d;
+    flex-shrink: 0;
+    align-self: flex-end;
+}
+
+.quickassign-toolbar .qa-close:hover {
+    background: #f1f3f5;
+    color: #212529;
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar .qa-close:hover {
+    background: #2b3648;
+    color: #e9ecef;
+}
+
+.quickassign-toolbar .qa-status-msg {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: none;
+    font-size: 13px;
+}
+
+.qa-status-msg.qa-info     { background: #e7f5ff; color: #1971c2; }
+.qa-status-msg.qa-success  { background: #d3f9d8; color: #2b8a3e; }
+.qa-status-msg.qa-warning  { background: #fff3bf; color: #e67700; }
+.qa-status-msg.qa-error    { background: #ffe3e3; color: #c92a2a; }
+
+/* Select2 sizing fixes inside the toolbar */
+.quickassign-toolbar .select2-container {
+    width: 100% !important;
+}
+.quickassign-toolbar .select2-container--default .select2-selection--single {
+    height: 34px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+.quickassign-toolbar .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px;
+}
+.quickassign-toolbar .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 32px;
+}
+
+/* The dropdown panel itself is attached to <body> by Select2 (not inside
+ * the toolbar) so that auto-positioning works and it flips above the
+ * toolbar instead of dropping off-screen. We still need to make sure it
+ * renders above the toolbar's z-index of 1050. */
+.select2-container--open {
+    z-index: 1060 !important;
+}
+
+[data-bs-theme="dark"] .quickassign-toolbar .select2-container--default .select2-selection--single {
+    background: #2b3648;
+    border-color: #3a4759;
+}
+[data-bs-theme="dark"] .quickassign-toolbar .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #e9ecef;
+}
+
+/* Row flash to confirm an update visually. The change is applied to the
+ * underlying ticket immediately, but the cell value won't update until the
+ * next list refresh (manual or GLPI's auto-refresh). The flash makes it
+ * clear which rows the action affected. */
+tr.qa-row-updated > td,
+tr.qa-row-updated {
+    animation: qa-row-flash 1.6s ease-out;
+}
+
+@keyframes qa-row-flash {
+    0%   { background-color: rgba(64, 192, 87, 0.35); }
+    40%  { background-color: rgba(64, 192, 87, 0.25); }
+    100% { background-color: transparent; }
+}
+
+[data-bs-theme="dark"] tr.qa-row-updated > td,
+[data-bs-theme="dark"] tr.qa-row-updated {
+    animation: qa-row-flash-dark 1.6s ease-out;
+}
+
+@keyframes qa-row-flash-dark {
+    0%   { background-color: rgba(64, 192, 87, 0.45); }
+    40%  { background-color: rgba(64, 192, 87, 0.30); }
+    100% { background-color: transparent; }
+}
+
+/* Compact at narrow widths */
+@media (max-width: 900px) {
+    .quickassign-toolbar .qa-field { min-width: 150px; }
+    .quickassign-toolbar .qa-field label { font-size: 10px; }
+}
+
+/* =========================================================================
+ * Config page (Setup > Quick Ticket Assignment)
+ * ========================================================================= */
+
+.qa-config-page {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.qa-config-card {
+    margin-top: 12px;
+}
+
+.qa-config-page .qa-counter {
+    font-size: 13px;
+    color: #6c757d;
+}
+.qa-config-page .qa-counter.text-danger { color: #c92a2a !important; }
+.qa-config-page .qa-counter #qa-active-count { font-weight: 700; color: inherit; }
+
+.qa-field-list {
+    /* Pull all rows together — the active/disabled visual difference is
+     * carried by the row class and the checkbox state, not by spacing. */
+    padding: 0;
+}
+
+.qa-field-list .qa-row {
+    /* Bootstrap's list-group-item already gives us a border + padding;
+     * we just need to lay out the row contents horizontally. */
+    cursor: default;
+}
+
+.qa-field-list .qa-row.qa-row-active {
+    background: #f8f9fc;
+    border-left: 3px solid #206bc4;
+}
+
+[data-bs-theme="dark"] .qa-field-list .qa-row.qa-row-active {
+    background: #1f2a3d;
+    border-left-color: #4dabf7;
+}
+
+.qa-row-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.qa-arrows {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.qa-arrows .btn {
+    padding: 1px 6px;
+    line-height: 1;
+    font-size: 11px;
+}
+
+.qa-row-label {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.qa-row-name {
+    font-weight: 500;
+}
+
+.qa-row-key {
+    font-size: 11px;
+    margin-left: auto;
+}
+
+.qa-actions .btn { min-width: 100px; }
+
+/* Inline-edit settings section — visually demoted from the field list
+ * (no list-group chrome, smaller heading) since it's a single switch. */
+.qa-config-page .qa-settings-sep {
+    margin-top: 22px;
+    margin-bottom: 14px;
+    border-top: 1px solid #dee2e6;
+}
+[data-bs-theme="dark"] .qa-config-page .qa-settings-sep {
+    border-top-color: #3a4759;
+}
+
+.qa-config-page .qa-settings-heading {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6c757d;
+    margin: 0 0 10px 0;
+}
+
+[data-bs-theme="dark"] .qa-config-page .qa-settings-heading {
+    color: #adb5bd;
+}
+
+.qa-config-page .qa-setting-row {
+    margin-bottom: 8px;
+    padding-left: 1.6em; /* room for the checkbox before the label */
+}
+
+.qa-config-page .qa-setting-row .form-check-input {
+    margin-left: -1.6em;
+}
+
+.qa-config-page .qa-setting-help {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* =========================================================================
+ * Inline edit (Assistance > Tickets — click a cell to edit in place)
+ *
+ * Strategy: replace the cell's innerHTML with an editor of the matching
+ * widget shape. The cell is set to position:relative so the absolute-
+ * positioned editor can overflow narrow status/priority columns without
+ * shifting the table layout.
+ * ========================================================================= */
+
+td.qa-cell-editable {
+    /* Visual affordance — this cell is clickable to edit. The hover
+     * background is more saturated than the default row hover so it
+     * stands out as "click me to edit", not "click me to navigate". */
+    cursor: pointer;
+}
+
+td.qa-cell-editable:hover {
+    background: rgba(32, 107, 196, 0.08);
+    box-shadow: inset 0 -2px 0 rgba(32, 107, 196, 0.45);
+}
+
+[data-bs-theme="dark"] td.qa-cell-editable:hover {
+    background: rgba(77, 171, 247, 0.12);
+    box-shadow: inset 0 -2px 0 rgba(77, 171, 247, 0.55);
+}
+
+/* Empty-cell click-through (used when inline editing is OFF — see
+ * setupEmptyCellClickThrough in quickassign.js).
+ *
+ * Cursor only. No hover background, because this isn't an "edit me"
+ * affordance — it's a navigation fix. The user opted out of inline
+ * edit; we just don't want previously-editable empty cells to be
+ * silently dead-on-click. A regular pointer signals "you can click
+ * here" the same way a plain link does, without claiming the cell
+ * has any special interactive UI. */
+td.qa-cell-empty-clickthrough {
+    cursor: pointer;
+}
+
+/* While editing: kill the hover affordance and host the editor. */
+td.qa-cell-editing {
+    position: relative;
+    cursor: default;
+    background: transparent !important;
+    box-shadow: none !important;
+    /* Make sure the editor floating out of the cell isn't clipped by
+     * an ancestor's overflow:hidden. */
+    overflow: visible;
+}
+
+/* The editor itself. Min-width keeps it usable in narrow cells (status,
+ * priority); max-width caps it on wide cells (title) so it doesn't
+ * stretch to absurd widths. The editor is absolutely positioned so it
+ * doesn't perturb table column widths. */
+.qa-inline-editor {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 4px;
+    align-items: stretch;
+    min-width: 220px;
+    max-width: 480px;
+    padding: 4px;
+    background: #fff;
+    border: 1px solid #206bc4;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+[data-bs-theme="dark"] .qa-inline-editor {
+    background: #1a2234;
+    border-color: #4dabf7;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.qa-inline-editor .qa-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 28px;
+    padding: 4px 6px;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    background: #fff;
+    color: #212529;
+    font-size: 13px;
+}
+
+.qa-inline-editor .qa-input:focus {
+    outline: none;
+    border-color: #206bc4;
+    box-shadow: 0 0 0 2px rgba(32, 107, 196, 0.15);
+}
+
+[data-bs-theme="dark"] .qa-inline-editor .qa-input {
+    background: #2b3648;
+    border-color: #3a4759;
+    color: #e9ecef;
+}
+
+.qa-inline-editor .qa-confirm,
+.qa-inline-editor .qa-cancel {
+    flex: 0 0 auto;
+    height: 28px;
+    width: 28px;
+    padding: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border: 1px solid;
+}
+
+.qa-inline-editor .qa-confirm {
+    border-color: #206bc4;
+    background: #206bc4;
+    color: #fff;
+}
+.qa-inline-editor .qa-confirm:hover:not(:disabled) {
+    background: #1a5ba8;
+    border-color: #1a5ba8;
+}
+.qa-inline-editor .qa-confirm:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.qa-inline-editor .qa-cancel {
+    border-color: #dee2e6;
+    background: #f8f9fa;
+    color: #6c757d;
+}
+.qa-inline-editor .qa-cancel:hover {
+    background: #e9ecef;
+    color: #212529;
+}
+
+[data-bs-theme="dark"] .qa-inline-editor .qa-cancel {
+    background: #2b3648;
+    border-color: #3a4759;
+    color: #adb5bd;
+}
+[data-bs-theme="dark"] .qa-inline-editor .qa-cancel:hover {
+    background: #3a4759;
+    color: #e9ecef;
+}
+
+/* Select widget inside the inline editor: occupy the full editor width. */
+.qa-inline-editor .qa-select {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 28px;
+}
+
+.qa-inline-editor .select2-container {
+    width: auto !important;
+    flex: 1 1 auto;
+    min-width: 160px;
+}
+
+.qa-inline-editor .select2-container--default .select2-selection--single {
+    height: 28px;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+}
+
+.qa-inline-editor .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 26px;
+    font-size: 13px;
+}
+
+.qa-inline-editor .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+}
+
+[data-bs-theme="dark"] .qa-inline-editor .select2-container--default .select2-selection--single {
+    background: #2b3648;
+    border-color: #3a4759;
+}
+
+[data-bs-theme="dark"] .qa-inline-editor .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #e9ecef;
+}
+
+/* Cells that are part of a row but get the "click to navigate" overlay
+ * treatment when the row-bg-click setting is on. We add the cursor on
+ * the row instead of every individual cell so the visual signal stays
+ * consistent with what the click actually does. */
+tr.qa-row-clickable-bg {
+    cursor: pointer;
+}
+tr.qa-row-clickable-bg td.qa-cell-editable,
+tr.qa-row-clickable-bg td.qa-cell-editing {
+    cursor: pointer;  /* editable cells override below */
+}
+tr.qa-row-clickable-bg td.qa-cell-editing {
+    cursor: default;
+}
+
+/* =========================================================================
+ * Textarea fields (currently: Description)
+ *
+ * Two contexts:
+ *   - In the floating toolbar (.quickassign-toolbar). The qa-input-row
+ *     normally lays everything horizontally. For a textarea, we stack
+ *     the buttons vertically on the right so the textarea gets a
+ *     proper multi-line growth area.
+ *   - In an inline editor (.qa-inline-editor) inside a TD. Same idea:
+ *     textarea on the left growing to multi-row height, buttons stacked
+ *     vertically next to it.
+ * ========================================================================= */
+
+/* Toolbar context. Switch axis on the row wrapper, give the textarea
+ * room to grow vertically. */
+.quickassign-toolbar .qa-input-row-textarea {
+    align-items: flex-start;  /* don't stretch textarea to row height */
+}
+.quickassign-toolbar .qa-input-textarea {
+    /* Override the 34px fixed height the single-line .qa-input uses. */
+    height: auto;
+    min-height: 60px;
+    line-height: 1.4;
+    resize: vertical;        /* user can pull it taller if needed */
+    font-family: inherit;
+    width: 100%;
+    /* Toolbar slots are typically narrow; widen the textarea field so
+     * it gets a usable editing area without dominating the bar. */
+}
+.quickassign-toolbar .qa-field-textarea {
+    flex: 1 1 320px;
+    min-width: 260px;
+}
+
+/* Inline-edit context. Same shape — multi-row textarea, buttons stacked
+ * next to it. */
+.qa-inline-editor .qa-input-row-textarea {
+    align-items: flex-start;
+}
+.qa-inline-editor .qa-input-textarea {
+    height: auto;
+    min-height: 80px;
+    line-height: 1.4;
+    resize: vertical;
+    font-family: inherit;
+    width: 100%;
+}
+
+/* Stacked button column next to the textarea, in either context. The
+ * confirm/cancel buttons sit one above the other so they don't compete
+ * with the textarea for horizontal space. */
+.qa-input-row-textarea .qa-input-row-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 0 0 auto;
+}
+
+/* Disabled state during prefill loading. */
+.qa-inline-editor .qa-input-textarea[disabled],
+.quickassign-toolbar .qa-input-textarea[disabled] {
+    background: #f1f3f5;
+    color: #868e96;
+    cursor: progress;
+}
+[data-bs-theme="dark"] .qa-inline-editor .qa-input-textarea[disabled],
+[data-bs-theme="dark"] .quickassign-toolbar .qa-input-textarea[disabled] {
+    background: #1e2737;
+    color: #6c7686;
+}
