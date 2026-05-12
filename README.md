@@ -1,12 +1,12 @@
-# Quick Ticket Assignment — GLPI Plugin
+# Quick Ticket Assignment - GLPI Plugin
 
 A Zammad-style quick-edit plugin for the GLPI **Assistance > Tickets** list,
 with two complementary surfaces:
 
-- **Toolbar** — select one or more tickets with the row checkboxes and a
+- **Toolbar** - select one or more tickets with the row checkboxes and a
   floating bar appears at the bottom of the screen with one or more
   configurable widgets. Picking a value applies it to every selected ticket.
-- **Inline edit** — click an editable cell directly in a ticket row and the
+- **Inline edit** - click an editable cell directly in a ticket row and the
   cell turns into the same widget the toolbar would have used (text input,
   date picker, dropdown, etc.). The change applies to that one ticket.
   Immutable cells (Ticket ID, Opening Date, Last Update, …) keep their
