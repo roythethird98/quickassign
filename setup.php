@@ -45,9 +45,9 @@ function plugin_version_quickassign()
     return [
         'name'         => 'Quick Ticket Assignment',
         'version'      => PLUGIN_QUICKASSIGN_VERSION,
-        'author'       => 'Custom',
+        'author'       => 'Troy Moore',
         'license'      => 'GPLv3',
-        'homepage'     => '',
+        'homepage'     => 'https://github.com/roythethird98/quickassign',
         'requirements' => [
             'glpi' => [
                 'min' => PLUGIN_QUICKASSIGN_MIN_GLPI,
